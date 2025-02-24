@@ -1,0 +1,42 @@
+@use 'sass:map';
+@use '../../styles/variables' as vars;
+@use '../../styles/mixins' as mix;
+
+.button {
+  padding: map.get(vars.$spacing, '3') map.get(vars.$spacing, '4');
+  @include mix.font-size('lg');
+  @include mix.font-weight('semibold');
+  border: none;
+  border-radius: map.get(vars.$border-radius, 'md');
+  cursor: pointer;
+  @include mix.transition;
+
+  &.primary {
+    background-color: mix.get-color('primary');
+    color: white;
+
+    @include mix.hover {
+      background-color: mix.get-color('primary', 'dark');
+    }
+  }
+
+  &.secondary {
+    background-color: mix.get-color('secondary');
+    color: white;
+
+    @include mix.hover {
+      background-color: mix.get-color('secondary', 'dark');
+    }
+  }
+
+  &:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
+
+  &.full-width {
+    width: 100%;
+  }
+
+  @include mix.focus-ring;
+} 

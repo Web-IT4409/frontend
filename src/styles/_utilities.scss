@@ -1,0 +1,112 @@
+@use 'sass:map';
+@use 'variables' as vars;
+@use 'mixins' as mix;
+
+// spacing
+@each $key, $value in vars.$spacing {
+  .m-#{$key} { margin: $value; }
+  .mt-#{$key} { margin-top: $value; }
+  .mr-#{$key} { margin-right: $value; }
+  .mb-#{$key} { margin-bottom: $value; }
+  .ml-#{$key} { margin-left: $value; }
+  .mx-#{$key} { 
+    margin-left: $value;
+    margin-right: $value;
+  }
+  .my-#{$key} { 
+    margin-top: $value;
+    margin-bottom: $value;
+  }
+
+  .p-#{$key} { padding: $value; }
+  .pt-#{$key} { padding-top: $value; }
+  .pr-#{$key} { padding-right: $value; }
+  .pb-#{$key} { padding-bottom: $value; }
+  .pl-#{$key} { padding-left: $value; }
+  .px-#{$key} { 
+    padding-left: $value;
+    padding-right: $value;
+  }
+  .py-#{$key} { 
+    padding-top: $value;
+    padding-bottom: $value;
+  }
+}
+
+// colors
+@each $color-name, $color-variants in vars.$colors {
+  @each $variant-name, $value in $color-variants {
+    .text-#{$color-name}-#{$variant-name} {
+      color: $value;
+    }
+    .bg-#{$color-name}-#{$variant-name} {
+      background-color: $value;
+    }
+  }
+}
+
+// typo
+@each $size-name, $size-value in vars.$font-sizes {
+  .text-#{$size-name} {
+    font-size: $size-value;
+  }
+}
+
+@each $weight-name, $weight-value in vars.$font-weights {
+  .font-#{$weight-name} {
+    font-weight: $weight-value;
+  }
+}
+
+// display
+.d-none { display: none; }
+.d-block { display: block; }
+.d-inline { display: inline; }
+.d-inline-block { display: inline-block; }
+.d-flex { display: flex; }
+.d-grid { display: grid; }
+
+// flex utilities
+.flex-row { flex-direction: row; }
+.flex-column { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-nowrap { flex-wrap: nowrap; }
+.justify-content-start { justify-content: flex-start; }
+.justify-content-end { justify-content: flex-end; }
+.justify-content-center { justify-content: center; }
+.justify-content-between { justify-content: space-between; }
+.justify-content-around { justify-content: space-around; }
+.align-items-start { align-items: flex-start; }
+.align-items-end { align-items: flex-end; }
+.align-items-center { align-items: center; }
+.align-items-baseline { align-items: baseline; }
+.align-items-stretch { align-items: stretch; }
+
+// position
+.position-relative { position: relative; }
+.position-absolute { position: absolute; }
+.position-fixed { position: fixed; }
+.position-sticky { position: sticky; }
+
+// border radius
+@each $radius-name, $radius-value in vars.$border-radius {
+  .rounded-#{$radius-name} {
+    border-radius: $radius-value;
+  }
+}
+
+// shadows
+@each $shadow-name, $shadow-value in vars.$shadows {
+  .shadow-#{$shadow-name} {
+    box-shadow: $shadow-value;
+  }
+}
+
+// responsive
+@each $breakpoint-name, $breakpoint-value in vars.$breakpoints {
+  @include mix.breakpoint($breakpoint-name) {
+    .d-#{$breakpoint-name}-none { display: none; }
+    .d-#{$breakpoint-name}-block { display: block; }
+    .d-#{$breakpoint-name}-flex { display: flex; }
+  }
+} 

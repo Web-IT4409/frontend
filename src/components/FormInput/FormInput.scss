@@ -1,0 +1,36 @@
+@use 'sass:map';
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.form-input-wrapper {
+  width: 100%;
+  margin-bottom: map.get($spacing, '3');
+
+  .form-input {
+    width: 100%;
+    padding: map.get($spacing, '3') map.get($spacing, '4');
+    @include font-size('lg');
+    border: 1px solid get-color('gray', '300');
+    border-radius: map.get($border-radius, 'md');
+    background-color: get-color('gray', '100');
+    @include transition;
+
+    &:focus {
+      outline: none;
+      border-color: get-color('primary');
+      box-shadow: 0 0 0 2px rgba(get-color('primary'), 0.2);
+      background-color: white;
+    }
+
+    &.error {
+      border-color: get-color('danger');
+    }
+  }
+
+  .error-message {
+    color: get-color('danger');
+    @include font-size('sm');
+    margin-top: map.get($spacing, '1');
+    display: block;
+  }
+} 

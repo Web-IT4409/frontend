@@ -1,0 +1,149 @@
+@use 'sass:map';
+@use 'sass:color';
+
+// colors
+$colors: (
+  'primary': (
+    'base': #1877f2,
+    'light': #1984ff,
+    'dark': #1661c9,
+    'contrast': #ffffff
+  ),
+  'secondary': (
+    'base': #42b72a,
+    'light': #4cd431,
+    'dark': #36a420,
+    'contrast': #ffffff
+  ),
+  'success': (
+    'base': #31a24c,
+    'light': #42b72a,
+    'dark': #2b9444,
+    'contrast': #ffffff
+  ),
+  'danger': (
+    'base': #ff4d4f,
+    'light': #ff7875,
+    'dark': #d9363e,
+    'contrast': #ffffff
+  ),
+  'warning': (
+    'base': #faad14,
+    'light': #ffc53d,
+    'dark': #d48806,
+    'contrast': #000000
+  ),
+  'info': (
+    'base': #1890ff,
+    'light': #40a9ff,
+    'dark': #096dd9,
+    'contrast': #ffffff
+  ),
+  'gray': (
+    '100': #f5f6f7,
+    '200': #ebedf0,
+    '300': #dddfe2,
+    '400': #ccd0d5,
+    '500': #8d949e,
+    '600': #606770,
+    '700': #444950,
+    '800': #2a2f35,
+    '900': #1c1e21
+  )
+);
+
+// typo
+$font-family: (
+  'primary': ('Helvetica Neue', Helvetica, Arial, sans-serif),
+  'secondary': (SFProText-Regular, Helvetica, Arial, sans-serif),
+  'monospace': ('SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace)
+);
+
+$font-sizes: (
+  'xs': 0.75rem,    // 12px
+  'sm': 0.875rem,   // 14px
+  'base': 1rem,     // 16px
+  'lg': 1.125rem,   // 18px
+  'xl': 1.25rem,    // 20px
+  '2xl': 1.5rem,    // 24px
+  '3xl': 1.875rem,  // 30px
+  '4xl': 2.25rem,   // 36px
+  '5xl': 3rem       // 48px
+);
+
+$font-weights: (
+  'light': 300,
+  'normal': 400,
+  'medium': 500,
+  'semibold': 600,
+  'bold': 700
+);
+
+// spacing
+$spacing: (
+  '0': 0,
+  '1': 0.25rem,    // 4px
+  '2': 0.5rem,     // 8px
+  '3': 0.75rem,    // 12px
+  '4': 1rem,       // 16px
+  '5': 1.25rem,    // 20px
+  '6': 1.5rem,     // 24px
+  '8': 2rem,       // 32px
+  '10': 2.5rem,    // 40px
+  '12': 3rem,      // 48px
+  '16': 4rem,      // 64px
+  '20': 5rem,      // 80px
+  '24': 6rem       // 96px
+);
+
+// breakpoints
+$breakpoints: (
+  'xs': 0,
+  'sm': 576px,
+  'md': 768px,
+  'lg': 992px,
+  'xl': 1200px,
+  '2xl': 1400px
+);
+
+// z-index
+$z-index: (
+  'dropdown': 1000,
+  'sticky': 1020,
+  'fixed': 1030,
+  'modal-backdrop': 1040,
+  'modal': 1050,
+  'popover': 1060,
+  'tooltip': 1070
+);
+
+// border radius
+$border-radius: (
+  'none': 0,
+  'sm': 0.125rem,    // 2px
+  'base': 0.25rem,   // 4px
+  'md': 0.375rem,    // 6px
+  'lg': 0.5rem,      // 8px
+  'xl': 0.75rem,     // 12px
+  '2xl': 1rem,       // 16px
+  'full': 9999px
+);
+
+// shadows
+$shadows: (
+  'none': none,
+  'sm': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+  'base': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+  'md': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+  'lg': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+  'xl': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+  '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+  'inner': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)'
+);
+
+// transitions
+$transitions: (
+  'base': 'all 0.2s ease-in-out',
+  'fast': 'all 0.1s ease-in-out',
+  'slow': 'all 0.3s ease-in-out'
+); 
