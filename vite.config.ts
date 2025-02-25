@@ -8,7 +8,8 @@ export default defineConfig({
   server: {
     watch: {
       usePolling: true
-    }
+    },
+    allowedHosts: true
   },
   resolve: {
     alias: {
