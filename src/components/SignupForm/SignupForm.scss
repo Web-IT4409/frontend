@@ -1,0 +1,196 @@
+@use 'sass:map';
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.signup-form {
+  background-color: white;
+  @include shadow('lg');
+  border-radius: map.get($border-radius, 'lg');
+  padding: map.get($spacing, '5');
+  margin-bottom: map.get($spacing, '6');
+
+  .minititle {
+    display: block;
+    text-align: left;
+    color: get-color('gray');
+    @include font-size('sm');
+    text-decoration: none;
+    margin: map.get($spacing, '4') 0;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid get-color('gray', '200');
+    margin: map.get($spacing, '5') 0;
+  }
+
+  .create-account-btn {
+    margin: 0 auto;
+    display: block;
+    padding: map.get($spacing, '3') map.get($spacing, '4');
+    @include font-size('lg');
+  }
+} 
+/* Typography */
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+/* Container */
+.container {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+}
+
+/* Input Fields */
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+    border-color: #1877f2;
+    box-shadow: 0 0 0 3px rgba(24, 119, 242, 0.1);
+    outline: none;
+}
+
+/* Name Input */
+.name-input {
+    display: flex;
+    gap: 10px;
+}
+
+#name-input {
+    width: 100%;
+}
+
+/* Date Input */
+.date-input {
+    display: flex;
+    gap: 10px;
+}
+
+select {
+    flex: 1;
+    background: #f8f9fa;
+}
+
+/* Gender Options */
+.gender-options {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.gender-options label {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.gender-options input:checked + label {
+    background: #1877f2;
+    color: white;
+    border-color: #1877f2;
+}
+
+/* Button */
+.signup-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #42b72a, #36a420);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.signup-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(66, 183, 42, 0.3);
+}
+
+/* Link */
+.login-link {
+    display: block;
+    margin-top: 1rem;
+    color: #1877f2;
+    text-decoration: none;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.login-link:hover {
+    color: #115293;
+}
+
+/* Header */
+.header-lor {
+    font-weight: 600;
+    color: #666;
+    margin: 10px 0;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .container {
+        padding: 1.5rem;
+    }
+    
+    .name-input, .date-input, .gender-options {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+.gender-options {
+  display: flex;
+  gap: 10px;
+}
+.header-lor {
+  font-weight: bold;
+  color: darkgrey;
+  text-align: left;
+  font-size: 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.radi {
+  position: relative;
+  display: flex;
+  gap: 5px;
+}
+.radi input {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+  width: 15px;
+  height: 15px;
+}
