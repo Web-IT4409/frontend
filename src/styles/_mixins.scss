@@ -100,7 +100,7 @@
 // shadows
 @mixin shadow($size: 'base') {
   @if map.has-key(vars.$shadows, $size) {
-    box-shadow: map.get(vars.$shadows, $size);
+    box-shadow: #{map.get(vars.$shadows, $size)};
   }
 }
 

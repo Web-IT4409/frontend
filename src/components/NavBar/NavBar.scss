@@ -4,14 +4,29 @@
 
 
 .bar {
-    // @include mix.shadow('base');
+    @include mix.shadow('base');
+    @include mix.flex-between();
+    padding-left: 15px;
+    padding-right: 15px;
     background-color: #ffffff;
     width: 100vw;
     height: 80px;
-    // z-index: map.get(vars.$z-index, 'fixed');
+    z-index: map.get(vars.$z-index, 'fixed');
     // box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-    box-shadow: #{map.get(vars.$shadows, 'base')};
+    // box-shadow: #{map.get(vars.$shadows, 'base')};
     position: fixed;
     top: 0px;
 }
 
+.left-side{
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: auto;
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import './Home.scss';
 import NavBar from '@/components/NavBar/NavBar'
+import NewsFeed from '@/components/NewsFeed/NewsFeed'
 
 const Home: React.FC = () => {
     return (
@@ -10,7 +11,10 @@ const Home: React.FC = () => {
             {/* <NewsFeed />
             <Shortcuts />
             <Contacts /> */}
+            <NewsFeed>
             
+            </NewsFeed>
+
         </div>
     );
 };
