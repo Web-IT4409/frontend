@@ -18,12 +18,12 @@
     top: 0px;
 }
 
-.left-side{
-    height: 80px;
+.side{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-items: auto;
+    gap: 15px;
 }
 
 .icon {

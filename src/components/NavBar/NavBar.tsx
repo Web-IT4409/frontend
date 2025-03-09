@@ -1,6 +1,7 @@
 import React from 'react';
 import './NavBar.scss';
 import { useNavigate } from 'react-router';
+import Button from '../Button/Button';
 
 const SearchBox: React.FC = ({
 }) => (
@@ -16,17 +17,23 @@ const NavBar: React.FC = () => {
 
     return (
         <div className = "bar">
-            <div className = "left-side">
+            <div className = "side">
                 <img
                     src="/src/assets/facebook-logo.svg"
                     className = "icon"
                 />
                 
                 <SearchBox />
+
             </div>
 
-            <div>
-            Hi!
+            <div className = "side">
+                <Button>
+                    Change Password
+                </Button>
+                <Button>
+                    Log Out
+                </Button>
             </div>
 
         </div>
