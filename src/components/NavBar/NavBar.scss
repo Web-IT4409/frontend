@@ -1,0 +1,17 @@
+@use 'sass:map';
+@use '../../styles/variables' as vars;
+@use '../../styles/mixins' as mix;
+
+
+.bar {
+    // @include mix.shadow('base');
+    background-color: #ffffff;
+    width: 100vw;
+    height: 80px;
+    // z-index: map.get(vars.$z-index, 'fixed');
+    // box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: #{map.get(vars.$shadows, 'base')};
+    position: fixed;
+    top: 0px;
+}
+
