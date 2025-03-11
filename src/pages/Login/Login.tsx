@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 import LoginForm from '@components/LoginForm/LoginForm';
 import './Login.scss';
+import facebookLogo from '@assets/facebook-logo.svg';
 
 const Login: React.FC = () => {
     const navigate = useNavigate();
@@ -23,7 +24,7 @@ const Login: React.FC = () => {
             <div className="login-content">
                 <div className="login-left">
                     <img
-                        src="/src/assets/facebook-logo.svg"
+                        src={facebookLogo}
                         alt="Facebook"
                         className="facebook-logo"
                     />
