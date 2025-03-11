@@ -43,7 +43,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, onCreateAccount }) => {
                 Log in
             </Button>
 
-            <a href="#" className="forgot-password">
+            <a href="/fogot-pass" className="forgot-password">
                 Forgotten password?
             </a>
 
