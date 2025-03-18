@@ -71,7 +71,7 @@ const Menu: React.FC = () => {
           <div className="circle-container">
             <img
               id="avt"
-              src="https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/457155527_1160386718406533_7963986829018704570_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGxb0Lxv5lfKBHyy_xa3m0qEPNuLENc3iEQ824sQ1zeIV1MiGN4dyIkSFj_lsiqwHfGqqwvOPNm1VDIMiZDdoFE&_nc_ohc=E_oaqV8n98YQ7kNvgGAoCiJ&_nc_oc=Adg7VuahbkkUWrMkyFI1hfi-2K1YBzdxulYZnCnX3RHfQbPIrNjYV5iep3j2ggRNCec&_nc_zt=23&_nc_ht=scontent.fhan2-4.fna&_nc_gid=Ar3vxqnUdgrOyA0DPf9miSB&oh=00_AYBVs2lXkEShftfEEKArKDi0EaTq03ei14sVjpbauLcH1A&oe=67C12D74"
+              src=""
               alt="user-avatar"
             />
           </div>
