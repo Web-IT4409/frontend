@@ -111,8 +111,8 @@
 }
   
 .status-part-comment.show {
-    max-height: 400px; /* Hoặc một giá trị đủ lớn */
-    opacity: 1;
+    max-height: 500px; /* Hoặc một giá trị đủ lớn */
+    opacity: 1 !important;
     padding-top: 20px;
     overflow-y: scroll;
     padding-top: 20px;

@@ -1,6 +1,7 @@
 .comment-container{
     width: 80%;
     margin-left: 5%;
+    margin-top: 15px;
 }
 .comment-part{
     background-color: rgb(51, 54, 55);

@@ -1,7 +1,13 @@
 import React from "react";
 import "./Menu.css";
 
-const Menu: React.FC = () => {
+interface MenuProps {
+  avt?: string;
+}
+
+const Menu: React.FC<MenuProps> = ({
+  avt = "https://i.pinimg.com/736x/8f/1c/a2/8f1ca2029e2efceebd22fa05cca423d7.jpg",
+}) => {
   return (
     <div className="menu-cont">
       <div className="left-cont">
@@ -69,11 +75,7 @@ const Menu: React.FC = () => {
             </li>
           </div>
           <div className="circle-container">
-            <img
-              id="avt"
-              src=""
-              alt="user-avatar"
-            />
+            <img id="avt" src={avt} alt="user-avatar" />
           </div>
         </ul>
       </div>

@@ -11,7 +11,20 @@ const Home: React.FC = () => {
             <div className="home">
                 <HeaderHome />
                 <h1>Welcome to the Home Page</h1>
-                <Status />
+                <Status
+                    comments={[ 
+                        { 
+                          name: "User 1", 
+                          comment: "Hay quá!", 
+                        },
+                        { 
+                          name: "User 2", 
+                          comment: "Ảnh đẹp quá!", 
+                        }
+                      ]}
+                      
+                />
+
             </div>
         </div>
     );
