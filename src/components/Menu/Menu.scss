@@ -43,7 +43,7 @@
 .left-cont{
     display: flex;
     justify-content: left;
-    width: 20%;
+    max-width: 30%;
 }
 .left-cont .menu-list{
     display: flex;
@@ -56,7 +56,7 @@
 .right-cont{
     display: flex;
     justify-content: right;
-    width: 20%;
+    max-width: 30%;
 }
 .right-cont .menu-list{
     display: flex;
@@ -94,9 +94,11 @@ li:not(.sli):hover{
     border: none;
     font-size: 16px;
 }
+
 .search-cont{
     position: relative;
 }
+
 .fa-search{
     position: absolute;
     color: rgb(176,179,184);
@@ -129,4 +131,20 @@ li:not(.sli):hover{
 }
 
 
+@media screen and (max-width: 1280px){
+    .search-input{
+        width: 40px;
+    }
+    // TODO
+}
 
+@media screen and (max-width: 400px){
+    // TODO
+    
+    .mid-cont{
+        display: none;
+    }
+    .mid-cont div{
+        display: none;
+    }
+}
