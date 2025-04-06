@@ -1,5 +1,5 @@
 import React from "react";
-import "./HeaderHome.css";
+import "./HeaderHome.scss";
 
 interface HeaderHomeProps {
   avt?: string;

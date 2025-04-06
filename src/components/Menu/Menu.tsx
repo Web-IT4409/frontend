@@ -20,8 +20,8 @@ const Menu: React.FC<MenuProps> = ({
             />
           </div>
           <div className="search-cont">
-            <input type="text" className="search-input" placeholder="Search..." />
             <i className="fa-solid fa-search"></i>
+            <input type="text" className="search-input" placeholder="Search..." />
           </div>
         </ul>
       </div>
