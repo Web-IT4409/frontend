@@ -19,11 +19,12 @@ const Menu: React.FC<MenuProps> = ({
       <div className="left-cont">
         <ul className="menu-list">
           <div className="circle-container logo">
-            <img
+            <a href="/home"> <img
               id="avt"
               src="https://z-m-static.xx.fbcdn.net/rsrc.php/v4/yD/r/5D8s-GsHJlJ.png"
               alt="logo"
             />
+            </a>
           </div>
           <div className="search-cont">
             <input type="text" className="search-input" placeholder="Search..." />
@@ -35,7 +36,7 @@ const Menu: React.FC<MenuProps> = ({
       <div className="mid-cont">
         <ul className="menu-list">
           <li>
-            <a href="#">
+            <a href="/home">
               <i className="fa-solid fa-house"></i>
             </a>
           </li>
@@ -84,7 +85,10 @@ const Menu: React.FC<MenuProps> = ({
             </li>
           </div>
           <div className="circle-container">
+          <a href="/profile">
             <img id="avt" src={avt} alt="user-avatar" />
+          </a>
+
           </div>
         </ul>
       </div>
