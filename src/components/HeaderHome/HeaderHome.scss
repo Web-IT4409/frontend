@@ -1,3 +1,8 @@
+@use 'sass:map';
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+
 .header-container {
   display: flex;
   justify-content: center;
@@ -9,11 +14,16 @@
 }
 
 .header-part {
-  background-color: rgb(37, 39, 40);
+  background-color: #fff;
+  html.dark & {
+    background-color: rgb(37, 39, 40);
+  }
+
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   width: 100%;
   border-radius: 10px;
   overflow: hidden;
+
 }
 
 .header-part-upper {
@@ -29,21 +39,30 @@
 }
 
 #header-input {
-  background-color: rgb(51, 51, 52);
+  background-color: get-color('gray', '200');
+  color: #000;
+  html.dark & {
+    background-color: rgb(51, 51, 52);
+    color: aliceblue;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
   width: 100%;
   height: 36px;
   border-radius: 18px;
   padding: 0 15px 0 35px;
-  color: aliceblue;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    
   border: none;
   font-size: 14px;
   transition: background-color 0.3s ease;
+  
 }
 
 #header-input:focus {
-  background-color: rgb(60, 62, 64);
   outline: none;
+  html.dark & {
+    background-color: rgb(60, 62, 64);  
+  }
 }
 
 .header-part-lower {
@@ -66,7 +85,10 @@
 }
 
 .header-part-lower-item:hover {
-  background-color: rgb(58, 58, 58);
+  background-color: get-color('gray', '200');
+  html.dark & {
+    background-color: rgb(58, 58, 58);
+  }
 }
 
 .header-part-lower-item i {
@@ -76,7 +98,11 @@
 }
 
 .header-part-lower-item:hover i {
-  color: aliceblue;
+  // color: aliceblue;
+  color: get-color('gray', '900');
+  html.dark & {
+    color: aliceblue
+  }
 }
 
 /* Modal styles */
@@ -86,7 +112,10 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(255, 255, 255, 0.7);
+  html.dark & {
+    background: rgba(0, 0, 0, 0.7);
+  }
   display: flex;
   justify-content: center;
   align-items: center;
@@ -94,7 +123,10 @@
 }
 
 .modal-card {
-  background: rgb(37, 39, 40);
+  background: #fff;
+  html.dark & {
+    background: rgb(37, 39, 40);
+  }
   padding: 20px;
   border-radius: 10px;
   width: 100%;
@@ -102,10 +134,14 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   max-height: 85vh;
   overflow-y: auto;
+
 }
 
 .modal-title {
-  color: white;
+  color: black;
+  html.dark & {
+    color: white;
+  }
   font-size: 18px;
   margin-bottom: 15px;
 }
@@ -114,17 +150,26 @@
   width: 100%;
   height: 120px;
   padding: 10px;
-  background-color: rgb(51, 51, 52);
-  color: white;
+  
+  background-color: get-color('gray', '200');
+  color: black;
+  html.dark & {
+    background-color: rgb(51, 51, 52);
+    color: white;
+  } 
   border-radius: 8px;
   resize: none;
   border: none;
   font-size: 14px;
   transition: background-color 0.3s ease;
+
 }
 
 .modal-textarea:focus {
-  background-color: rgb(60, 62, 64);
+  background-color: get-color('gray', '100');
+  html.dark & {
+    background-color: rgb(60, 62, 64);
+  }
   outline: none;
 }
 
@@ -136,8 +181,12 @@
 }
 
 .metadata-item {
-  background-color: rgb(51, 51, 52);
-  color: white;
+  background-color: get-color('gray', '200');
+  color: black;
+  html.dark & {
+    background-color: rgb(51, 51, 52);
+    color: white;
+  }
   padding: 5px 10px;
   border-radius: 4px;
   display: flex;
@@ -155,7 +204,10 @@
 }
 
 .remove-metadata-btn:hover {
-  color: white;
+  color: black;
+  html.dark & {
+    color: white;
+  }
 }
 
 .image-preview-list {
@@ -234,11 +286,19 @@
 }
 
 .modal-button.cancel {
-  background-color: rgb(58, 58, 58);
+  background-color: get-color('gray', '200');
+  color: black;
+  html.dark & {
+    background-color: rgb(58, 58, 58);
+    color: white;
+  }
 }
 
 .modal-button.cancel:hover {
-  background-color: rgb(80, 80, 80);
+  background-color: get-color('gray', '400');
+  html.dark & {
+    background-color: rgb(80, 80, 80);
+  }
 }
 
 .modal-button.post {
@@ -294,7 +354,7 @@
   position: absolute;
   bottom: 100%;
   left: 0;
-  background-color: rgb(51, 51, 52);
+  background-color: white;
   border-radius: 4px;
   box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
   z-index: 1001;
@@ -303,18 +363,30 @@
   overflow-y: auto;
   transform: translateY(-5px);
   animation: slideUp 0.2s ease-out;
+  
+  html.dark & {
+    background-color: rgb(51, 51, 52);
+    
+  }
 }
 
 .dropup-item {
   padding: 8px 12px;
-  color: white;
+  color: black;
+  html.dark & {
+    color: white;
+  }
+
   cursor: pointer;
   font-size: 13px;
   transition: background-color 0.3s ease;
 }
 
 .dropup-item:hover {
-  background-color: rgb(80, 80, 80);
+  background-color: get-color('gray', '200');
+  html.dark & {
+    background-color: rgb(80, 80, 80);
+  }
 }
 
 @keyframes slideUp {

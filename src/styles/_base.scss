@@ -14,6 +14,24 @@ html {
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  &.dark {
+    body {
+      color: mix.get-color('gray', '100');
+      background-color: mix.get-color('gray', '900');
+    }
+
+    a {
+      color: mix.get-color('primary', 'light');
+
+      @include mix.hover {
+        color: mix.get-color('primary');
+      }
+    }
+
+    .skip-link {
+      background: mix.get-color('primary', 'dark');
+    }
+  }
 }
 
 body {

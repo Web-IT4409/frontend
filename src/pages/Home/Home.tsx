@@ -3,6 +3,7 @@ import Menu from '@/components/Menu/Menu.tsx';
 import HeaderHome from '@/components/HeaderHome/HeaderHome.tsx';
 import Status from '@/components/Status/Status.tsx';
 import './Home.scss';
+import ThemeToggle from '@/components/ThemeToggle/ThemeToggle';
 
 const Home: React.FC = () => {
     return (
@@ -24,7 +25,7 @@ const Home: React.FC = () => {
                       ]}
                       
                 />
-
+                <ThemeToggle />
             </div>
         </div>
     );

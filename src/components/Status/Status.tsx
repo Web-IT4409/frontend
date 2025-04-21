@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Status.css";
+import "./Status.scss";
 import Comment from "./Comment";
 
 interface StatusProps {

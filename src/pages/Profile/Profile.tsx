@@ -2,6 +2,7 @@ import React from 'react';
 import Menu from '@/components/Menu/Menu';
 import Status from '@/components/Status/Status';
 import './Profile.scss';
+import ThemeToggle from '@/components/ThemeToggle/ThemeToggle';
 
 const Profile: React.FC = () => {
   return (
@@ -31,6 +32,7 @@ const Profile: React.FC = () => {
           />
         </div>
       </div>
+      <ThemeToggle/>
     </div>
   );
 };
