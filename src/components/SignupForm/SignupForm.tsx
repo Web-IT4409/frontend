@@ -7,7 +7,8 @@ import FormInput from '@components/FormInput/FormInput';
 import './SignupForm.scss';
 
 const signupSchema = z.object({
-    name: z.string().min(1, 'Name is required'),
+    firstName: z.string().min(1, 'First name is required'),
+    lastName: z.string().min(1, 'Last name is required'),
     gender: z.string().min(1, 'Gender is required'),
     dob: z.string().min(1, 'Date of birth is required'),
     emailOrPhone: z.string().min(1, 'Email or phone number is required'),
@@ -30,16 +31,22 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSubmit, onHavingAccount }) =>
         <form onSubmit={handleSubmit(onSubmit)} className="signup-form">
             <FormInput
                 type="text"
-                placeholder="Full Name"
-                error={errors.name?.message}
-                {...register('emailOrPhone')}
+                placeholder="First Name"
+                error={errors.firstName?.message}
+                {...register('firstName')}
+            />
+            <FormInput
+                type="text"
+                placeholder="Last Name"
+                error={errors.lastName?.message}
+                {...register('lastName')}
             />
             <p className="header-lor">Date of Birth <i className="fa-solid fa-circle-question"></i></p>
             <FormInput
                 type="date"
                 placeholder="DoB"
                 error={errors.dob?.message}
-                {...register('emailOrPhone')}
+                {...register('dob')}
             />
             <p className="header-lor">Gender <i className="fa-solid fa-circle-question"></i></p>
             <div className="gender-options">
@@ -48,11 +55,11 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSubmit, onHavingAccount }) =>
                     <span className="gender">Female</span>
                 </label>
                 <label className="radi">
-                    <input type="radio" id="female" name="gender"/>
+                    <input type="radio" id="male" name="gender"/>
                     <span className="gender">Male</span>
                 </label>
                 <label className="radi">
-                    <input type="radio" id="female" name="gender"/>
+                    <input type="radio" id="other" name="gender"/>
                     <span className="gender">Other</span>
                 </label>
             </div>
@@ -90,4 +97,4 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSubmit, onHavingAccount }) =>
     );
 };
 
-export default SignupForm; 
+export default SignupForm;

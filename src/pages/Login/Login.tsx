@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
 import LoginForm from '@components/LoginForm/LoginForm';
+import { login } from '@/services/authService'
 import './Login.scss';
 
 const Login: React.FC = () => {
@@ -8,7 +9,10 @@ const Login: React.FC = () => {
 
     const handleSubmit = async (data: any) => {
         try {
-            console.log('Login attempt:', data);
+            const response = await login(data);
+            console.log('Login Successful:', response.data);
+            localStorage.setItem('token', response.data.token); // Save token to localStorage
+            navigate('/home'); // Redirect to home page
         } catch (error) {
             console.error('Login failed:', error);
         }

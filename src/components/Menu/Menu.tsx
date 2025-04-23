@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router';
+import { logout } from '@/services/authService';
 import "./Menu.scss";
 
 interface MenuProps {
@@ -8,6 +10,18 @@ interface MenuProps {
 const Menu: React.FC<MenuProps> = ({
   avt = "https://i.pinimg.com/736x/8f/1c/a2/8f1ca2029e2efceebd22fa05cca423d7.jpg",
 }) => {
+  const navigate = useNavigate();
+  
+  const handleLogout = async () => {
+    try {
+      await logout();
+      localStorage.removeItem('token'); // Remove token from localStorage
+      navigate('/'); // Redirect to login page
+    } catch (error) {
+      console.error('Logout Failed:', error);
+    }
+  };
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -77,7 +91,7 @@ const Menu: React.FC<MenuProps> = ({
               </a>
             </li>
           </div>
-          <div className="circle-container">
+          <div className="circle-container" onClick={handleLogout}>
             <li className="sli">
               <a href="#">
                 <i className="fa-solid fa-circle-user"></i>
