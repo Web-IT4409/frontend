@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import LoginForm from '@components/LoginForm/LoginForm';
-import { login } from '@/services/authService'
+import { login } from '@/services/authService';
 import './Login.scss';
 
 const Login: React.FC = () => {
     const navigate = useNavigate();
+
+    // Redirect to home if the user is already signed in
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            navigate('/home'); // Redirect to home page
+        }
+    }, [navigate]);
 
     const handleSubmit = async (data: any) => {
         try {
@@ -45,4 +53,4 @@ const Login: React.FC = () => {
     );
 };
 
-export default Login; 
+export default Login;
