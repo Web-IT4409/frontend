@@ -9,9 +9,11 @@ import './SignupForm.scss';
 const signupSchema = z.object({
     firstName: z.string().min(1, 'First name is required'),
     lastName: z.string().min(1, 'Last name is required'),
-    gender: z.string().min(1, 'Gender is required'),
+    gender: z.enum(['Female', 'Male', 'Other'], { required_error: 'Gender is required' }),
     dob: z.string().min(1, 'Date of birth is required'),
-    emailOrPhone: z.string().min(1, 'Email or phone number is required'),
+    username: z.string()
+        .min(3, 'Username must be at least 3 characters')
+        .regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'),
     password: z.string().min(6, 'Password must be at least 6 characters'),
 });
 
@@ -26,6 +28,8 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSubmit, onHavingAccount }) =>
     const { register, handleSubmit, formState: { errors } } = useForm<SignupFormData>({
         resolver: zodResolver(signupSchema)
     });
+
+    console.log('Validation errors:', Object.keys(errors).length > 0 ? errors : 'No validation errors');
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="signup-form">
@@ -51,25 +55,38 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSubmit, onHavingAccount }) =>
             <p className="header-lor">Gender <i className="fa-solid fa-circle-question"></i></p>
             <div className="gender-options">
                 <label className="radi">
-                    <input type="radio" id="female" name="gender"/>
+                    <input
+                        type="radio"
+                        value="Female"
+                        {...register('gender')}
+                    />
                     <span className="gender">Female</span>
                 </label>
                 <label className="radi">
-                    <input type="radio" id="male" name="gender"/>
+                    <input
+                        type="radio"
+                        value="Male"
+                        {...register('gender')}
+                    />
                     <span className="gender">Male</span>
                 </label>
                 <label className="radi">
-                    <input type="radio" id="other" name="gender"/>
+                    <input
+                        type="radio"
+                        value="Other"
+                        {...register('gender')}
+                    />
                     <span className="gender">Other</span>
                 </label>
             </div>
-            
+            {errors.gender && <p className="error-message">{errors.gender.message}</p>}
+
             <p className="header-lor">Account <i className="fa-solid fa-circle-question"></i></p>
             <FormInput
                 type="text"
-                placeholder="Email address or phone number"
-                error={errors.emailOrPhone?.message}
-                {...register('emailOrPhone')}
+                placeholder="Username"
+                error={errors.username?.message}
+                {...register('username')}
             />
 
             <FormInput

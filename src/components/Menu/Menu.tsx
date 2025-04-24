@@ -16,6 +16,7 @@ const Menu: React.FC<MenuProps> = ({
     try {
       await logout();
       localStorage.removeItem('token'); // Remove token from localStorage
+      console.log('Logged out successfully');
       navigate('/'); // Redirect to login page
     } catch (error) {
       console.error('Logout Failed:', error);
