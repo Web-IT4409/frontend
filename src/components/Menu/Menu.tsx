@@ -16,6 +16,7 @@ const Menu: React.FC<MenuProps> = ({
     try {
       await logout();
       localStorage.removeItem('token'); // Remove token from localStorage
+      console.log('Logged out successfully');
       navigate('/'); // Redirect to login page
     } catch (error) {
       console.error('Logout Failed:', error);
@@ -94,7 +95,7 @@ const Menu: React.FC<MenuProps> = ({
           <div className="circle-container" onClick={handleLogout}>
             <li className="sli">
               <a href="#">
-                <i className="fa-solid fa-circle-user"></i>
+                <i className="fa-solid fa-right-from-bracket" style={{color:'red'}}></i>
               </a>
             </li>
           </div>

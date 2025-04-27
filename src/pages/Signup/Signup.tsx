@@ -8,19 +8,13 @@ const Signup: React.FC = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (data: any) => {
+    console.log('Form submitted:', data);
     try {
-      const { firstName, lastName, emailOrPhone, password } = data;
+      const { firstName, lastName, username, password } = data;
 
-      const payload = {
-        firstName,
-        lastName,
-        username: emailOrPhone, // Map emailOrPhone to username
-        password,
-      };
-
-      const response = await signUp(payload);
+      const response = await signUp({firstName, lastName, username, password});
       console.log('Sign Up Successful:', response.data);
-      navigate('/'); // Redirect to login page
+      navigate('/');
     } catch (error) {
       console.error('Sign Up Failed:', error);
     }

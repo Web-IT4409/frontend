@@ -7,7 +7,9 @@ import FormInput from '@components/FormInput/FormInput';
 import './LoginForm.scss';
 
 const loginSchema = z.object({
-    emailOrPhone: z.string().min(1, 'Email or phone number is required'),
+    username: z.string()
+        .min(3, 'Username must be at least 3 characters')
+        .regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'),
     password: z.string().min(6, 'Password must be at least 6 characters'),
 });
 
@@ -27,9 +29,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, onCreateAccount }) => {
         <form onSubmit={handleSubmit(onSubmit)} className="login-form">
             <FormInput
                 type="text"
-                placeholder="Email address or phone number"
-                error={errors.emailOrPhone?.message}
-                {...register('emailOrPhone')}
+                placeholder="Username"
+                error={errors.username?.message}
+                {...register('username')}
             />
 
             <FormInput
@@ -61,4 +63,4 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, onCreateAccount }) => {
     );
 };
 
-export default LoginForm; 
+export default LoginForm;

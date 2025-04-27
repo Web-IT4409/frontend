@@ -1,10 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Menu from '@/components/Menu/Menu';
 import Status from '@/components/Status/Status';
 import './Profile.scss';
 import ThemeToggle from '@/components/ThemeToggle/ThemeToggle';
+import { fetchUserDetails } from '@/services/userService';
+
+interface UserDetails {
+  firstName: string;
+  lastName: string;
+  username: string;
+  email?: string; // Add other fields as needed
+}
 
 const Profile: React.FC = () => {
+  const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const getUserDetails = async () => {
+      try {
+        const data = await fetchUserDetails(); // Call the service function
+        setUserDetails(data);
+      } catch (err: any) {
+        console.error('Failed to fetch user details:', err);
+        setError('Failed to load user details.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getUserDetails();
+  }, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
   return (
     <div className="profile-container">
       <Menu />
@@ -15,8 +51,10 @@ const Profile: React.FC = () => {
             src="https://i.pinimg.com/736x/8f/1c/a2/8f1ca2029e2efceebd22fa05cca423d7.jpg"
             alt="Avatar"
           />
-          <h2 className="profile-name">Trần Quốc Hoàn</h2>
-          <p className="profile-info">Sinh viên ngành Kỹ thuật Máy tính - ĐHBK Hà Nội</p>
+          <h2 className="profile-name">
+            {userDetails?.firstName} {userDetails?.lastName}
+          </h2>
+          <p className="profile-info">@{userDetails?.username}</p>
         </div>
 
         <div className="profile-statuses">
@@ -32,7 +70,7 @@ const Profile: React.FC = () => {
           />
         </div>
       </div>
-      <ThemeToggle/>
+      <ThemeToggle />
     </div>
   );
 };
