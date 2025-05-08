@@ -2,20 +2,22 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import LoginForm from '@components/LoginForm/LoginForm';
 import { login } from '@/services/authService';
+import { isTokenExpired } from '@/utils/auth';
 import './Login.scss';
 
 const Login: React.FC = () => {
     const navigate = useNavigate();
 
-    // Redirect to home if the user is already signed in
     useEffect(() => {
         const token = localStorage.getItem('token');
-        if (token) {
-            navigate('/home'); // Redirect to home page
+        if (token && !isTokenExpired(token)) {
+            navigate('/home'); // Redirect to home page if token is valid
+        } else {
+            localStorage.removeItem('token'); // Remove expired or invalid token
         }
     }, [navigate]);
 
-    const handleSubmit = async (data: any) => {
+    const handleSubmit = async (data: {username: string, password: string}) => {
         try {
             const response = await login(data);
             console.log('Login Successful:', response.data);
