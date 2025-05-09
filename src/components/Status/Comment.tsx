@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Comment.scss";
 
 interface CommentProps {
@@ -12,8 +12,14 @@ const Comment: React.FC<CommentProps> = ({
   avt = "https://i.pinimg.com/736x/8f/1c/a2/8f1ca2029e2efceebd22fa05cca423d7.jpg",
   name = "Username",
   comment = "User comment",
-  imgcmt = "https://hoangphuconline.vn/media/magefan_blog/2021/12/hinh-nen-dep-96-scaled.jpg",
+  imgcmt,
 }) => {
+  const [isImageBroken, setIsImageBroken] = useState(false);
+
+  const handleImageError = () => {
+    setIsImageBroken(true); // Hide the image if it's broken
+  };
+
   return (
     <div className="comment-container">
       <div className="comment-part">
@@ -29,9 +35,16 @@ const Comment: React.FC<CommentProps> = ({
           <div className="status-part-content-title">
             <span id="status-message">{comment}</span>
           </div>
-          <div className="status-part-content-img">
-            <img id="status-img" src={imgcmt} alt="status-image" />
-          </div>
+          {imgcmt && !isImageBroken && (
+            <div className="status-part-content-img">
+              <img
+                id="status-img"
+                src={imgcmt}
+                alt="comment-image"
+                onError={handleImageError} // Handle broken images
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

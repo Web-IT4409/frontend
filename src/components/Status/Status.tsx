@@ -1,34 +1,60 @@
 import React, { useState } from "react";
 import "./Status.scss";
 import Comment from "./Comment";
+import { fetchCommentsByPostId } from "@/services/postService";
 
-interface StatusProps {
+export interface StatusProps {
+  id: number;
   avt?: string;
   name?: string;
   message?: string;
   image?: string;
-  comments?: { avt?: string; name?: string; comment?: string; imgcmt?: string}[];
+  // comments?: { avt?: string; name?: string; comment?: string; imgcmt?: string}[];
 }
 
 const Status: React.FC<StatusProps> = ({
+  id,
   avt = "https://i.pinimg.com/736x/8f/1c/a2/8f1ca2029e2efceebd22fa05cca423d7.jpg",
   name = "Username",
   message = "User title",
-  image = "https://hoangphuconline.vn/media/magefan_blog/2021/12/hinh-nen-dep-96-scaled.jpg",
-  comments = [],
+  image,
 }) => {
   const [liked, setLiked] = useState(false); // State lưu trạng thái Like
   const [showComments, setShowComments] = useState(false); // State hiển thị bình luận
+  const [comments, setComments] = useState<
+    { id: number; name: string; comment: string }[]
+  >([]);
+  const [isImageBroken, setIsImageBroken] = useState(false);
 
   const toggleLike = () => {
     setLiked((prev) => !prev); // Đảo trạng thái Like
   };
 
-  const toggleComments = () => {
+  const toggleComments = async () => {
     setShowComments((prev) => !prev); // Hiện/ẩn phần bình luận
+
+    if (!showComments) {
+      try {
+        const data = await fetchCommentsByPostId(id); // Fetch comments by post ID
+        const mappedComments = data.map((comment: { id: number; User: { username: string }; content: string }) => ({
+          id: comment.id,
+          name: comment.User.username,
+          comment: comment.content,
+        }));
+        setComments(mappedComments);
+      } catch (error) {
+        console.error("Failed to fetch comments:", error);
+      }
+    }
+    
     console.log("showComments:", !showComments); // Kiểm tra giá trị mới
   };
   console.log("Comments:", comments);
+
+  const handleImageError = () => {
+    setIsImageBroken(true); // Hide the image if it's broken
+  };
+
   return (
     <div className="status-container">
       <div className="status-part">
@@ -44,9 +70,14 @@ const Status: React.FC<StatusProps> = ({
           <div className="status-part-content-title">
             <span id="status-message">{message}</span>
           </div>
-          {image && (
+          {image && !isImageBroken && (
             <div className="status-part-content-img">
-              <img id="status-img" src={image} alt="status-image" />
+              <img
+                id="status-img"
+                src={image}
+                alt="status-image"
+                onError={handleImageError} // Handle broken images
+              />
             </div>
           )}
         </div>
@@ -76,11 +107,11 @@ const Status: React.FC<StatusProps> = ({
         {/* Phần bình luận, chỉ hiển thị nếu showComments = true */}
         <div className={`status-part-comment ${showComments ? "show" : ""}`}>
           {comments.length > 0 ? (
-            comments.map((cmt, index) => (
-              <Comment key={index} avt={cmt.avt} name={cmt.name} comment={cmt.comment} imgcmt={cmt.imgcmt}/>
+            comments.map((cmt) => (
+              <Comment key={cmt.id} name={cmt.name} comment={cmt.comment} />
             ))
           ) : (
-            <p style={{ color: "white", textAlign: "center", padding: "10px" }}>Chưa có bình luận</p>
+            <p className="no-comments-text" >Chưa có bình luận</p>
           )}
         </div>
 

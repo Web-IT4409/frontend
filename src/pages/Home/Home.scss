@@ -18,7 +18,10 @@
   margin-top: 60px; // Space for fixed menu
 
   h1 {
-    color: #ffffff;
+    color: get-color('gray', '700');
+    .dark & {
+      color: #ffffff;
+    }
     margin: 2rem 0;
     font-size: clamp(1.5rem, 4vw, 2.5rem);
     text-align: center;
