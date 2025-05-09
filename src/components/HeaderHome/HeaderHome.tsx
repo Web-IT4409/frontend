@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 import "./HeaderHome.scss";
+import { createPost } from "@/services/postService";
 
-interface HeaderHomeProps {
+export interface HeaderHomeProps {
   avt?: string;
+  refreshPosts: () => Promise<void>;
 }
 
 const HeaderHome: React.FC<HeaderHomeProps> = ({
   avt = "https://i.pinimg.com/736x/8f/1c/a2/8f1ca2029e2efceebd22fa05cca423d7.jpg",
+  refreshPosts,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [previewImages, setPreviewImages] = useState<string[]>([]);
+  const [content, setContent] = useState<string>(""); // Post content
+  const [previewImages, setPreviewImages] = useState<string[]>([]); // Uploaded images
+  const [visibility, setVisibility] = useState<string>("PUBLIC"); // Post visibility
+  const [isSubmitting, setIsSubmitting] = useState(false); // Submission state
   const [location, setLocation] = useState<string | null>(null);
   const [emotion, setEmotion] = useState<string | null>(null);
   const [showLocationDropdown, setShowLocationDropdown] = useState(false);
@@ -24,7 +30,9 @@ const HeaderHome: React.FC<HeaderHomeProps> = ({
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setContent("");
     setPreviewImages([]);
+    setVisibility("PUBLIC");
     setLocation(null);
     setEmotion(null);
     setShowLocationDropdown(false);
@@ -63,6 +71,29 @@ const HeaderHome: React.FC<HeaderHomeProps> = ({
     setShowLocationDropdown(false); // Đóng dropdown vị trí khi mở cảm xúc
   };
 
+  const handleSubmitPost = async () => {
+    if (!content.trim()) {
+      alert("Nội dung bài đăng đang trống!");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const mediaUrl = previewImages; // Use the uploaded image URLs
+      const postData = { content, visibility, mediaUrl };
+      await createPost(postData); // Call the createPost service
+      alert("Đăng bài thành công!");
+      handleCloseModal(); // Close the modal after successful submission
+      refreshPosts(); // Refresh posts after creating a new post
+    } catch (error) {
+      console.error("Failed to create post:", error);
+      alert("Đăng bài thất bại, vui lòng thử lại");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <>
       <div className="header-container">
@@ -75,7 +106,7 @@ const HeaderHome: React.FC<HeaderHomeProps> = ({
               <input
                 id="header-input"
                 type="text"
-                placeholder="Bạn đang suy nghĩ gì..."
+                placeholder="Bạn đang nghĩ gì?"
                 onClick={handleInputClick}
               />
             </div>
@@ -96,10 +127,12 @@ const HeaderHome: React.FC<HeaderHomeProps> = ({
       {isModalOpen && (
         <div className="modal-overlay" onClick={handleCloseModal}>
           <div className="modal-card" onClick={(e) => e.stopPropagation()}>
-            <h2 className="modal-title">Tạo bài viết mới</h2>
+            <h2 className="modal-title">Tạo bài đăng mới</h2>
             <textarea
               className="modal-textarea"
-              placeholder="Viết nội dung bài viết của bạn..."
+              placeholder="Hãy viết gì đó..."
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
             ></textarea>
             <div className="modal-metadata">
               {location && (
@@ -190,11 +223,15 @@ const HeaderHome: React.FC<HeaderHomeProps> = ({
                 </div>
               </div>
               <div className="modal-buttons">
-                <button className="modal-button cancel" onClick={handleCloseModal}>
-                  Hủy
+                <button
+                  className="modal-button post"
+                  onClick={handleSubmitPost}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Đang tải..." : "Đăng"}
                 </button>
-                <button className="modal-button post" onClick={handleCloseModal}>
-                  Đăng
+                <button className="modal-button cancel" onClick={handleCloseModal}>
+                  Huỷ
                 </button>
               </div>
             </div>

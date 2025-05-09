@@ -13,20 +13,21 @@ const Home: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const loadPosts = async () => {
-      try {
-        const data: BackendPost[] = await fetchPosts(); // Fetch posts from the backend
-        const mappedPosts: StatusProps[] = data.map(mapBackendPostToStatusProps); // Map backend response to Status props
-        setPosts(mappedPosts);
-      } catch (err) {
-        console.error('Failed to fetch posts:', err);
-        setError('Failed to load posts.');
-      } finally {
-        setLoading(false);
-      }
-    };
+  const loadPosts = async () => {
+    setLoading(true);
+    try {
+      const data: BackendPost[] = await fetchPosts(); // Fetch posts from the backend
+      const mappedPosts: StatusProps[] = data.map(mapBackendPostToStatusProps); // Map backend response to Status props
+      setPosts(mappedPosts);
+    } catch (err) {
+      console.error('Failed to fetch posts:', err);
+      setError('Failed to load posts.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     loadPosts();
   }, []);
 
@@ -42,7 +43,7 @@ const Home: React.FC = () => {
     <div className="home-container">
       <Menu />
       <div className="home">
-        <HeaderHome />
+        <HeaderHome refreshPosts={loadPosts} />
         <div className="home-posts">
           {posts.map((post) => (
             <Status key={post.id} {...post} />
