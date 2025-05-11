@@ -9,6 +9,7 @@ export default defineConfig({
     watch: {
       usePolling: true
     },
+    port: 5000,
     allowedHosts: true,
     proxy: {
       '/api': {
