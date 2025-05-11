@@ -59,14 +59,14 @@ const Profile: React.FC = () => {
 
         <div className="profile-statuses">
           <Status
+            id={1}
             message="Một ngày đẹp trời để code!"
             image="https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
-            comments={[]}
           />
           <Status
+            id={2}
             message="Vừa hoàn thành đồ án IoT 😎"
             image="https://images.unsplash.com/photo-1581092334603-6c06f142f846"
-            comments={[]}
           />
         </div>
       </div>
