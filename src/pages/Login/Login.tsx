@@ -37,7 +37,7 @@ const Login: React.FC = () => {
             <div className="login-content">
                 <div className="login-left">
                     <img
-                        src="/src/assets/facebook-logo.svg"
+                        src="/src/assets/cat.svg"
                         alt="Facebook"
                         className="facebook-logo"
                     />
