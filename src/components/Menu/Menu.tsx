@@ -11,7 +11,7 @@ const Menu: React.FC<MenuProps> = ({
   avt = "https://i.pinimg.com/736x/8f/1c/a2/8f1ca2029e2efceebd22fa05cca423d7.jpg",
 }) => {
   const navigate = useNavigate();
-  
+
   const handleLogout = async () => {
     try {
       await logout();
@@ -81,7 +81,7 @@ const Menu: React.FC<MenuProps> = ({
           <div className="circle-container">
             <li className="sli">
               <a href="#">
-                <i className="fa-brands fa-facebook-messenger"></i>
+                <i className="fa-brands fa-konnekt-messenger"></i>
               </a>
             </li>
           </div>
@@ -95,14 +95,14 @@ const Menu: React.FC<MenuProps> = ({
           <div className="circle-container" onClick={handleLogout}>
             <li className="sli">
               <a href="#">
-                <i className="fa-solid fa-right-from-bracket" style={{color:'red'}}></i>
+                <i className="fa-solid fa-right-from-bracket" style={{ color: 'red' }}></i>
               </a>
             </li>
           </div>
           <div className="circle-container">
-          <a href="/profile">
-            <img id="avt" src={avt} alt="user-avatar" />
-          </a>
+            <a href="/profile">
+              <img id="avt" src={avt} alt="user-avatar" />
+            </a>
 
           </div>
         </ul>

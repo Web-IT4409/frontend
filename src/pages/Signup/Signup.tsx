@@ -12,7 +12,7 @@ const Signup: React.FC = () => {
     try {
       const { firstName, lastName, username, password } = data;
 
-      const response = await signUp({firstName, lastName, username, password});
+      const response = await signUp({ firstName, lastName, username, password });
       console.log('Sign Up Successful:', response.data);
       navigate('/');
     } catch (error) {
@@ -30,8 +30,8 @@ const Signup: React.FC = () => {
         <div className="login-left">
           <img
             src="/src/assets/cat.svg"
-            alt="Facebook"
-            className="facebook-logo"
+            alt="konnekt"
+            className="konnekt-logo"
           />
         </div>
         <div className="login-right">

@@ -17,7 +17,7 @@ const Login: React.FC = () => {
         }
     }, [navigate]);
 
-    const handleSubmit = async (data: {username: string, password: string}) => {
+    const handleSubmit = async (data: { username: string, password: string }) => {
         try {
             const response = await login(data);
             console.log('Login Successful:', response.data);
@@ -38,10 +38,10 @@ const Login: React.FC = () => {
                 <div className="login-left">
                     <img
                         src="/src/assets/cat.svg"
-                        alt="Facebook"
-                        className="facebook-logo"
+                        alt="konnekt"
+                        className="konnekt-logo"
                     />
-                    <h2>Facebook helps you connect and share with the people in your life.</h2>
+                    <h2>konnekt helps you connect and share with the people in your life.</h2>
                 </div>
 
                 <div className="login-right">
