@@ -14,9 +14,11 @@ const Signup: React.FC = () => {
 
       const response = await signUp({ firstName, lastName, username, password });
       console.log('Sign Up Successful:', response.data);
+      alert('Đăng ký tài khoản thành công!');
       navigate('/');
     } catch (error) {
       console.error('Sign Up Failed:', error);
+      alert('Đăng ký thất bại, vui lòng thử lại!');
     }
   };
 

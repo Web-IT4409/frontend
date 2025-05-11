@@ -1,0 +1,379 @@
+@import '@/styles/variables';
+@import '@/styles/mixins';
+
+.friends-container {
+  display: flex;
+  height: 100vh;
+  overflow-x: hidden;
+
+  .friends {
+    display: flex;
+    flex: 1;
+    padding-top: 60px; /* Space for the fixed header */
+    margin-top: 0;
+    
+    .sidebar {
+      width: 260px;
+      padding: 20px 8px;
+      background-color: var(--bg-color);
+      border-right: 1px solid var(--border-color);
+      overflow-y: auto;
+      flex-shrink: 0;
+      
+      .sidebar-header {
+        padding: 0 12px 12px;
+        margin-bottom: 8px;
+        border-bottom: 1px solid var(--border-color);
+        
+        h2 {
+          color: var(--text-color);
+          font-size: 1.5rem;
+          margin: 0;
+          padding: 0;
+        }
+      }
+      
+      .sidebar-nav {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        
+        li {
+          margin-bottom: 4px;
+          width: 100%;
+          height: auto;
+          
+          button {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: none;
+            cursor: pointer;
+            text-align: left;
+            font-weight: 500;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            position: relative;
+            
+            &::after {
+              content: '';
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              width: 0;
+              height: 3px;
+              background-color: var(--primary-color);
+              transition: width 0.3s ease;
+              border-radius: 3px;
+            }
+            
+            i {
+              margin-right: 10px;
+              width: 24px;
+              text-align: center;
+              color: var(--text-color-light);
+              transition: transform 0.2s ease;
+            }
+            
+            &.active {
+              background-color: var(--hover-color);
+              color: var(--primary-color);
+              font-weight: 600;
+              
+              &::after {
+                width: 100%;
+              }
+              
+              i {
+                color: var(--primary-color);
+                transform: scale(1.2);
+              }
+            }
+            
+            &:hover:not(.active) {
+              background-color: var(--hover-color);
+              
+              i {
+                transform: translateX(2px);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      
+      .content-header {
+        margin-bottom: 20px;
+        h2 {
+          color: var(--text-color);
+          margin-bottom: 10px;
+          font-size: 1.5rem;
+        }
+      }
+    }
+
+    .users-list {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+
+    .user-card {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+      min-width: 280px;
+      width: 100%;
+      overflow: hidden;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .user-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+
+        .user-avatar {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          object-fit: cover;
+          margin-right: 12px;
+        }
+
+        .user-info {
+          flex: 1;
+
+          .user-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin-bottom: 4px;
+          }
+
+          .username {
+            color: var(--text-color-light);
+            font-size: 0.9rem;
+          }
+        }
+      }
+
+      .hashtags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 12px;
+        padding: 0;
+
+  .hashtag {
+    background-color: #f0f2f5;
+    color: var(--text-color);
+    font-size: 0.8rem;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-weight: 500;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+    
+    html.dark & {
+      color: black;
+    }
+    
+    &:hover {
+      background-color: #e4e6eb;
+      transform: translateY(-1px);
+    }
+  }
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: auto;
+        width: 100%;
+
+        button {
+          flex: 1;
+          padding: 8px 10px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-weight: 500;
+          font-size: 0.85rem;
+          transition: background-color 0.2s;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+
+        .add-friend {
+          background-color: var(--primary-color);
+          color: black;
+          flex: 1.3;
+          transition: all 0.2s ease;
+          
+          html.dark & {
+            color: white;
+          }
+
+          &:hover {
+            background-color: lighten(#1877f2, 10%);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          }
+        }
+
+        .view-profile {
+          background-color: var(--button-secondary-bg);
+          color: var(--text-color);
+          flex: 1.7;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background-color: var(--hover-color);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          }
+        }
+
+        .remove-friend {
+          background-color: var(--danger-color);
+          color: black;
+
+          &:hover {
+            background-color: lighten(#e41e3f, 10%);
+          }
+        }
+
+        .cancel-request {
+          background-color: var(--button-secondary-bg);
+          color: var(--text-color);
+          border: none;
+          flex: 1.3;
+          transition: all 0.2s ease;
+          
+          &:hover {
+            background-color: #ffebee;
+            color: #c62828;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          }
+        }
+        
+        .accept-request {
+          background-color: var(--primary-color);
+          color: black;
+          flex: 1;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background-color: lighten(#4caf50, 10%);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          }
+        }
+
+        .reject-request {
+          background-color: var(--button-secondary-bg);
+          color: var(--text-color);
+          flex: 1;
+          transition: all 0.2s ease;
+          
+          &:hover {
+            background-color: #ffebee;
+            color: #c62828;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          }
+        }
+      }
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 0;
+      color: var(--text-color-light);
+
+      i {
+        font-size: 48px;
+        margin-bottom: 16px;
+        color: var(--text-color-light);
+      }
+
+      p {
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .friends-container .friends {
+    flex-direction: column;
+    padding-top: 50px; /* Adjusted for smaller header on tablet */
+    
+    .sidebar {
+      width: 100%;
+      padding: 10px;
+      border-right: none;
+      border-bottom: 1px solid var(--border-color);
+      
+      .sidebar-nav {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 10px;
+        
+        li {
+          margin-right: 10px;
+          margin-bottom: 0;
+          width: auto;
+          
+          button {
+            padding: 8px 16px;
+          }
+        }
+      }
+    }
+    
+    .content {
+      padding: 15px;
+      
+      .users-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .friends-container .friends {
+    padding-top: 90px; /* Adjusted for two-row menu on mobile */
+    
+    .sidebar {
+      padding: 8px;
+      
+      .sidebar-header {
+        padding: 0 8px 8px;
+      }
+    }
+    
+    .content {
+      padding: 10px;
+    }
+  }
+}

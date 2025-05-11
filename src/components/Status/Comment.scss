@@ -9,6 +9,15 @@
   margin: 15px auto;
   padding: 0 15px;
   box-sizing: border-box;
+  
+  @include mobile {
+    margin: 10px auto;
+    padding: 0 10px;
+  }
+  
+  @include tablet {
+    max-width: 550px;
+  }
 }
 
 .comment-part {
@@ -20,6 +29,11 @@
   width: 100%;
   border-radius: 10px;
   overflow: hidden;
+  
+  @include mobile {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
 }
 
 .status-part-upper {
@@ -41,6 +55,23 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  
+  .comment-timestamp {
+    display: block;
+    font-weight: normal;
+    font-size: 12px;
+    color: #888;
+    margin-top: 2px;
+    
+    @include mobile {
+      font-size: 10px;
+      margin-top: 1px;
+    }
+  }
+  
+  @include mobile {
+    font-size: 14px;
+  }
 }
 
 .comment-part-content {
@@ -105,6 +136,10 @@
   #status-message {
     font-size: 13px;
   }
+  
+  .status-part-content-img img {
+    border-radius: 8px;
+  }
 }
 
 /* Mobile (≤ 480px) */
@@ -130,5 +165,36 @@
 
   #status-message {
     font-size: 12px;
+  }
+  
+  .status-part-content-img img {
+    border-radius: 6px;
+  }
+}
+
+/* Small mobile devices (≤ 360px) */
+@media (max-width: 360px) {
+  .comment-container {
+    padding: 0 2px;
+    margin: 5px auto;
+  }
+  
+  .status-part-upper {
+    padding: 5px 8px;
+    gap: 6px;
+  }
+  
+  .comment-part-content {
+    padding: 8px;
+  }
+  
+  #status-message {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+  
+  .circle-container img {
+    width: 32px;
+    height: 32px;
   }
 }

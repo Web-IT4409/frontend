@@ -1,20 +1,24 @@
 import React, { useState } from "react";
 import "./HeaderHome.scss";
 import { createPost } from "@/services/postService";
+import { uploadImage } from "@/utils/upload";
 
 export interface HeaderHomeProps {
   avt?: string;
   refreshPosts: () => Promise<void>;
+  username?: string;
 }
 
 const HeaderHome: React.FC<HeaderHomeProps> = ({
   avt = "https://i.pinimg.com/736x/8f/1c/a2/8f1ca2029e2efceebd22fa05cca423d7.jpg",
   refreshPosts,
+  username = "User",
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [content, setContent] = useState<string>(""); // Post content
-  const [previewImages, setPreviewImages] = useState<string[]>([]); // Uploaded images
-  const [visibility, setVisibility] = useState<string>("PUBLIC"); // Post visibility
+  const [previewImages, setPreviewImages] = useState<string[]>([]); // Local preview images
+  const [uploadedImageUrls, setUploadedImageUrls] = useState<string[]>([]); // Firebase URLs
+  const [visibility, setVisibility] = useState<'PUBLIC' | 'PRIVATE'>('PUBLIC'); // Post visibility
   const [isSubmitting, setIsSubmitting] = useState(false); // Submission state
   const [location, setLocation] = useState<string | null>(null);
   const [emotion, setEmotion] = useState<string | null>(null);
@@ -32,23 +36,42 @@ const HeaderHome: React.FC<HeaderHomeProps> = ({
     setIsModalOpen(false);
     setContent("");
     setPreviewImages([]);
+    setUploadedImageUrls([]);
     setVisibility("PUBLIC");
     setLocation(null);
     setEmotion(null);
     setShowLocationDropdown(false);
     setShowEmotionDropdown(false);
   };
+  
+  const toggleVisibility = () => {
+    setVisibility(prev => prev === 'PUBLIC' ? 'PRIVATE' : 'PUBLIC');
+  };
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
+      // Create previews for immediate display
       const newImages = Array.from(files).map((file) => URL.createObjectURL(file));
       setPreviewImages((prev) => [...prev, ...newImages]);
+      
+      // Upload each image to Firebase
+      try {
+        const uploadPromises = Array.from(files).map(file => uploadImage(file));
+        const urls = await Promise.all(uploadPromises);
+        // Filter out any null values (failed uploads)
+        const validUrls = urls.filter(url => url !== null) as string[];
+        setUploadedImageUrls((prev) => [...prev, ...validUrls]);
+      } catch (error) {
+        console.error("Error uploading images:", error);
+        alert("Có lỗi xảy ra khi tải ảnh lên. Vui lòng thử lại.");
+      }
     }
   };
 
   const handleRemoveImage = (index: number) => {
     setPreviewImages((prev) => prev.filter((_, i) => i !== index));
+    setUploadedImageUrls((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleLocationSelect = (loc: string) => {
@@ -80,8 +103,14 @@ const HeaderHome: React.FC<HeaderHomeProps> = ({
     setIsSubmitting(true);
 
     try {
-      const mediaUrl = previewImages; // Use the uploaded image URLs
-      const postData = { content, visibility, mediaUrl };
+      // Use Firebase URLs for the post creation
+      const mediaUrl = uploadedImageUrls;
+      const postData = { 
+        content, 
+        visibility,
+        mediaUrl
+        // Location and emotion fields removed
+      };
       await createPost(postData); // Call the createPost service
       alert("Đăng bài thành công!");
       handleCloseModal(); // Close the modal after successful submission
@@ -111,17 +140,6 @@ const HeaderHome: React.FC<HeaderHomeProps> = ({
               />
             </div>
           </div>
-          <div className="header-part-lower">
-            <div className="header-part-lower-item">
-              <i className="far fa-bell"></i>
-            </div>
-            <div className="header-part-lower-item">
-              <i className="far fa-bell"></i>
-            </div>
-            <div className="header-part-lower-item">
-              <i className="far fa-bell"></i>
-            </div>
-          </div>
         </div>
       </div>
       {isModalOpen && (
@@ -134,23 +152,14 @@ const HeaderHome: React.FC<HeaderHomeProps> = ({
               value={content}
               onChange={(e) => setContent(e.target.value)}
             ></textarea>
-            <div className="modal-metadata">
-              {location && (
-                <span className="metadata-item">
-                  <i className="fas fa-map-marker-alt"></i> {location}
-                  <button className="remove-metadata-btn" onClick={() => setLocation(null)}>
-                    <i className="fas fa-times"></i>
-                  </button>
-                </span>
-              )}
-              {emotion && (
-                <span className="metadata-item">
-                  <i className="fas fa-smile"></i> {emotion}
-                  <button className="remove-metadata-btn" onClick={() => setEmotion(null)}>
-                    <i className="fas fa-times"></i>
-                  </button>
-                </span>
-              )}
+            <div className="post-visibility-toggle">
+              <span>Chế độ hiển thị:</span>
+              <button 
+                className={`visibility-toggle-button ${visibility === 'PUBLIC' ? 'active' : ''}`}
+                onClick={toggleVisibility}
+              >
+                <i className="fas fa-globe-asia"></i> {visibility === 'PUBLIC' ? 'Công khai' : 'Riêng tư'}
+              </button>
             </div>
             {previewImages.length > 0 && (
               <div className="image-preview-list">
@@ -179,48 +188,7 @@ const HeaderHome: React.FC<HeaderHomeProps> = ({
                     hidden
                   />
                 </label>
-                <div className="dropdown-container">
-                  <button
-                    className="modal-button location"
-                    onClick={toggleLocationDropdown}
-                  >
-                    <i className="fas fa-map-marker-alt"></i> Gắn vị trí
-                  </button>
-                  {showLocationDropdown && (
-                    <div className="dropup-menu">
-                      {locations.map((loc) => (
-                        <div
-                          key={loc}
-                          className="dropup-item"
-                          onClick={() => handleLocationSelect(loc)}
-                        >
-                          {loc}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <div className="dropdown-container">
-                  <button
-                    className="modal-button emotion"
-                    onClick={toggleEmotionDropdown}
-                  >
-                    <i className="fas fa-smile"></i> Cảm xúc
-                  </button>
-                  {showEmotionDropdown && (
-                    <div className="dropup-menu">
-                      {emotions.map((emo) => (
-                        <div
-                          key={emo}
-                          className="dropup-item"
-                          onClick={() => handleEmotionSelect(emo)}
-                        >
-                          {emo}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                {/* Location and emotion buttons removed as requested */}
               </div>
               <div className="modal-buttons">
                 <button

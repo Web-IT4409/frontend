@@ -12,7 +12,7 @@ export default defineConfig({
     allowedHosts: true,
     proxy: {
       '/api': {
-        target: 'http://146.190.86.198:3000', // your backend URL
+        target: 'https://konnekt.fun', // your backend URL
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path,

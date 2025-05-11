@@ -3,15 +3,21 @@ import Menu from '@/components/Menu/Menu';
 import HeaderHome from '@/components/HeaderHome/HeaderHome';
 import Status, { StatusProps } from '@/components/Status/Status'; // Import StatusProps
 import { fetchPosts } from '@/services/postService';
+import { fetchUserDetails } from '@/services/userService';
 import { mapBackendPostToStatusProps } from '@/utils/mappers';
 import { BackendPost } from '@/types/Post';
 import './Home.scss';
-import ThemeToggle from '@/components/ThemeToggle/ThemeToggle';
+
+interface UserData {
+  username: string;
+  avatar?: string;
+}
 
 const Home: React.FC = () => {
   const [posts, setPosts] = useState<StatusProps[]>([]); // Use imported StatusProps
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
 
   const loadPosts = async () => {
     setLoading(true);
@@ -29,7 +35,17 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     loadPosts();
+    loadUserData();
   }, []);
+  
+  const loadUserData = async () => {
+    try {
+      const data = await fetchUserDetails();
+      setUserData(data);
+    } catch (err) {
+      console.error('Failed to fetch user details:', err);
+    }
+  };
 
   if (loading) {
     return <p>Loading posts...</p>;
@@ -41,15 +57,18 @@ const Home: React.FC = () => {
 
   return (
     <div className="home-container">
-      <Menu />
+      <Menu avt={userData?.avatar} />
       <div className="home">
-        <HeaderHome refreshPosts={loadPosts} />
+        <HeaderHome 
+          refreshPosts={loadPosts} 
+          avt={userData?.avatar}
+          username={userData?.username}
+        />
         <div className="home-posts">
           {posts.map((post) => (
             <Status key={post.id} {...post} />
           ))}
         </div>
-        <ThemeToggle />
       </div>
     </div>
   );

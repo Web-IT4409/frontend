@@ -11,6 +11,15 @@
   margin: 0 auto;
   padding: 15px 15px;
   box-sizing: border-box;
+  
+  @include mobile {
+    padding: 10px 10px;
+    width: 100%;
+  }
+  
+  @include tablet {
+    width: 550px;
+  }
 }
 
 .status-part {
@@ -31,7 +40,6 @@
   align-items: center;
   gap: 15px;
   padding: 10px 15px;
-  border-bottom: 1px solid #888888;
 }
 
 .status-part-upper .status-name {
@@ -46,6 +54,19 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+}
+
+.status-part-upper .status-name .post-time {
+  font-size: 11px;
+  color: #888;
+  font-weight: normal;
+  margin-top: 2px;
+  
+  html.dark & {
+    color: #aaa;
+  }
 }
 
 .status-part-content {
@@ -104,6 +125,7 @@
   height: 40px;
   border-radius: 8px;
   transition: background-color 0.3s ease;
+  position: relative; /* For positioning the emotion picker */
 }
 
 .status-part-lower-item:hover {
@@ -119,6 +141,13 @@
   transition: color 0.3s ease;
 }
 
+.status-part-lower-item .count-text {
+  font-size: 14px;
+  color: rgb(152, 152, 152);
+  margin-left: 2px;
+  font-weight: 500;
+}
+
 .status-part-lower-item:hover i {
   color: get-color('gray', '900');
   html.dark & {
@@ -128,6 +157,157 @@
 
 .status-part-lower-item.liked i {
   color: rgb(13, 0, 255) !important;
+}
+
+/* Disabled state for like button when processing API calls */
+.status-part-lower-item.disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Emotion Picker Styles */
+.emotion-picker {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  html.dark & {
+    background-color: rgb(37, 39, 40);
+  }
+  border-radius: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  padding: 8px;
+  z-index: 100;
+  animation: fadeIn 0.2s ease-in-out;
+  min-width: max-content; /* Fix for issue #3 - prevent narrow container from cutting off */
+  left: 0;
+  right: 0;
+  margin: 0 auto; /* Center the picker */
+  transform: none; /* Remove the transform that was causing issues */
+  
+  @include mobile {
+    padding: 5px;
+    bottom: calc(100% + 5px);
+  }
+}
+
+.emotion-picker::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -8px;
+  border-width: 8px;
+  border-style: solid;
+  border-color: #fff transparent transparent transparent;
+  html.dark & {
+    border-color: rgb(37, 39, 40) transparent transparent transparent;
+  }
+}
+
+/* Create an invisible area to maintain hover between button and picker */
+.status-part-lower-item .emotion-hover-area {
+  position: absolute;
+  top: -15px; /* Extends above the button */
+  left: 0;
+  width: 100%;
+  height: 15px;
+  background-color: transparent;
+}
+
+.emotion-item {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 3px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.emotion-item:hover {
+  transform: scale(1.3) translateY(-5px);
+}
+
+.emotion-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.emotion-item i {
+  font-size: 20px;
+  position: relative;
+  z-index: 2;
+  display: block; /* Ensure the icon is visible */
+}
+
+/* Disabled state for emotion items when processing API requests */
+.emotion-item.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Facebook-like reaction backgrounds */
+.emotion-item.LIKE::before {
+  background-color: #1877f2;
+}
+
+.emotion-item.LOVE::before {
+  background-color: #f63366;
+}
+
+.emotion-item.HAHA::before {
+  background-color: #ffda6a;
+}
+
+.emotion-item.SAD::before {
+  background-color: #ffda6a;
+}
+
+.emotion-item.ANGRY::before {
+  background-color: #ff6347;
+}
+
+.emotion-item.WOW::before {
+  background-color: #ffda6a;
+}
+
+.emotion-item.CARE::before {
+  background-color: #ffb444;
+}
+
+.emotion-item.LIKE i,
+.emotion-item.LOVE i,
+.emotion-item.ANGRY i,
+.emotion-item.CARE i,
+.emotion-item.HAHA i,
+.emotion-item.SAD i,
+.emotion-item.WOW i {
+  color: white !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .status-part-comment {
@@ -148,6 +328,28 @@
   opacity: 1;
   padding: 15px;
   overflow-y: auto;
+}
+
+.view-more-link {
+  color: #1877f2;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 8px;
+  text-align: center;
+  margin-top: 10px;
+  transition: background-color 0.2s ease;
+  border-radius: 5px;
+
+  html.dark & {
+    color: #4395ff;
+  }
+
+  &:hover {
+    background-color: rgba(24, 119, 242, 0.1);
+    html.dark & {
+      background-color: rgba(67, 149, 255, 0.1);
+    }
+  }
 }
 
 .status-part-comment-upper {
@@ -197,6 +399,19 @@
 
 /* Tablet (≤ 768px) */
 @media (max-width: 768px) {
+  .emotion-picker {
+    padding: 6px;
+  }
+  
+  .emotion-item {
+    width: 38px;
+    height: 38px;
+    margin: 0 2px;
+  }
+  
+  .emotion-item i {
+    font-size: 18px;
+  }
   .status-container {
     width: 500px;
     max-width: calc(100vw - 40px);
@@ -231,6 +446,10 @@
   .status-part-lower-item i {
     font-size: 18px;
   }
+  
+  .status-part-lower-item .count-text {
+    font-size: 13px;
+  }
 
   .status-part-comment.show {
     max-height: 350px;
@@ -245,9 +464,25 @@
 
 /* Mobile (≤ 480px) */
 @media (max-width: 480px) {
+  .emotion-picker {
+    padding: 4px;
+    width: 100%;
+    max-width: calc(100% - 10px);
+    justify-content: space-around;
+  }
+  
+  .emotion-item {
+    width: 34px;
+    height: 34px;
+    margin: 0 1px;
+  }
+  
+  .emotion-item i {
+    font-size: 16px;
+  }
   .status-container {
-    width: calc(100vw - 40px);
-    max-width: calc(100vw - 40px);
+    width: calc(100vw - 20px);
+    max-width: calc(100vw - 20px);
     padding: 5px 5px;
   }
 
@@ -259,6 +494,10 @@
   .status-part-upper .status-name {
     font-size: 13px;
   }
+  
+  .status-part-upper .status-name .post-time {
+    font-size: 10px;
+  }
 
   .status-part-content {
     padding: 10px;
@@ -269,7 +508,7 @@
   }
 
   .status-part-lower {
-    padding: 6px 10px;
+    padding: 6px 8px;
   }
 
   .status-part-lower-item {
@@ -280,15 +519,59 @@
   .status-part-lower-item i {
     font-size: 16px;
   }
+  
+  .status-part-lower-item .count-text {
+    font-size: 12px;
+  }
 
   .status-part-comment.show {
     max-height: 300px;
-    padding: 10px;
+    padding: 8px;
   }
 
   #comment-input {
     height: 30px;
     font-size: 12px;
     padding: 0 10px 0 25px;
+    border-radius: 15px;
+  }
+  
+  .view-more-link {
+    font-size: 12px;
+    padding: 5px;
+  }
+}
+
+/* Small mobile devices (≤ 360px) */
+@media (max-width: 360px) {
+  .status-container {
+    padding: 2px 2px;
+    width: calc(100vw - 10px);
+    max-width: calc(100vw - 10px);
+  }
+  
+  .status-part-upper {
+    padding: 5px 8px;
+  }
+  
+  .status-part-content {
+    padding: 8px;
+  }
+  
+  .status-part-lower-item {
+    height: 28px;
+  }
+  
+  .status-part-lower-item i {
+    font-size: 14px;
+  }
+  
+  .emotion-item {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .emotion-item i {
+    font-size: 14px;
   }
 }

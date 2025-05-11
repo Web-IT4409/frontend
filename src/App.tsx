@@ -5,6 +5,8 @@ import Login from '@pages/Login/Login';
 import Signup from '@/pages/Signup/Signup';
 import Fogot from '@/pages/Login/Fogot';
 import Profile from '@/pages/Profile/Profile';
+import Friends from '@/pages/Friends/Friends';
+import PostDetail from '@/pages/PostDetail/PostDetail';
 import ProtectedRoute from '@/components/ProtectedRoute/ProtectedRoute';
 
 const App: React.FC = () => {
@@ -27,6 +29,22 @@ const App: React.FC = () => {
           element={
             <ProtectedRoute>
               <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/friends"
+          element={
+            <ProtectedRoute>
+              <Friends />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/post/:id"
+          element={
+            <ProtectedRoute>
+              <PostDetail />
             </ProtectedRoute>
           }
         />

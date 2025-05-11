@@ -6,6 +6,7 @@ interface CommentProps {
   name?: string;
   comment?: string;
   imgcmt?: string;
+  timestamp?: string;
 }
 
 const Comment: React.FC<CommentProps> = ({
@@ -13,6 +14,7 @@ const Comment: React.FC<CommentProps> = ({
   name = "Username",
   comment = "User comment",
   imgcmt,
+  timestamp,
 }) => {
   const [isImageBroken, setIsImageBroken] = useState(false);
 
@@ -29,6 +31,7 @@ const Comment: React.FC<CommentProps> = ({
           </div>
           <div className="status-name">
             <span id="username">{name}</span>
+            {timestamp && <span className="comment-timestamp">{timestamp}</span>}
           </div>
         </div>
         <div className="comment-part-content">
