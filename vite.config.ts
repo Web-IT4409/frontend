@@ -9,13 +9,18 @@ export default defineConfig({
     watch: {
       usePolling: true
     },
-    port: 5000,
     allowedHosts: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:3000/api', // your backend URL
+        target: 'http://167.71.202.92:3000', // your backend URL
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
+        secure: false,
+        rewrite: (path) => path,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+        }
       }
     }
   },

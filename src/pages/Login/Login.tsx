@@ -41,7 +41,7 @@ const Login: React.FC = () => {
                         alt="konnekt"
                         className="konnekt-logo"
                     />
-                    <h2>konnekt helps you connect and share with the people in your life.</h2>
+                    <h2>make new friends and explore the world together !</h2>
                 </div>
 
                 <div className="login-right">

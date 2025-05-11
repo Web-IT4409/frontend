@@ -36,7 +36,7 @@ const Menu: React.FC<MenuProps> = ({
           <div className="circle-container logo">
             <a href="/home"> <img
               id="avt"
-              src="https://z-m-static.xx.fbcdn.net/rsrc.php/v4/yD/r/5D8s-GsHJlJ.png"
+              src="src/assets/cat.svg"
               alt="logo"
             />
             </a>

@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  // baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api',
-  baseURL: '/api'
+  baseURL: '/api', // Use relative path to work with Vite proxy
 });
 
 // Add a request interceptor to include the token
