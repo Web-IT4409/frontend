@@ -151,17 +151,21 @@ const Status: React.FC<StatusProps> = ({
     
     setIsProcessing(true);
     try {
-      if (liked && emotionId) {
-        // Unlike if already liked
-        await removeEmotion(emotionId);
+      // If already liked (emotion exists), unlike it
+      if (liked) {
+        if (emotionId) {
+          // Unlike if we have an emotionId
+          await removeEmotion(emotionId);
+          
+          // Update originalPost if it exists
+          if (originalPost && originalPost.likesCount !== undefined && originalPost.likesCount > 0) {
+            originalPost.likesCount -= 1;
+          }
+        }
+        // Reset state regardless of whether we had an emotionId
         setLiked(false);
         setCurrentEmotion(null);
         setEmotionId(null);
-        
-        // Update originalPost if it exists
-        if (originalPost && originalPost.likesCount !== undefined && originalPost.likesCount > 0) {
-          originalPost.likesCount -= 1;
-        }
       } else {
         // Like with default LIKE emotion
         const result = await addEmotion(id, EMOTIONS.LIKE);
